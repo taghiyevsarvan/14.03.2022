@@ -14,7 +14,7 @@ namespace _14._03._2022
         
         public string GetInfo()
         {
-            return $"No: {this.No} - Adi: {this.Name} - Janri {this.Genre} - Qiymeti: {this.Price} - Sayi: {this.Count}";
+            return $"No: {this.No} - Adi: {this.Name} - Janri {this.Genre} \nQiymeti: {this.Price} - Sayi: {this.Count}";
         }
 
         

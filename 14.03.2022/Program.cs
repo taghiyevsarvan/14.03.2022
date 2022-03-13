@@ -46,7 +46,61 @@ namespace _14._03._2022
                 Console.WriteLine(products[i].GetInfo());
             }
 
+            #region CaseRegion
+
+            Console.WriteLine("Davam etmek ucun secim edin:");
+            Console.WriteLine("*****************************");
+            Console.WriteLine("1. Kitablari qiymete gore filterle");
+            Console.WriteLine("2. Kitablar icinde axtaris");
+            Console.WriteLine("3.Butun kitablari goster");
+            Console.WriteLine("0. Proqrami bagla");
+
+
             
+
+            string chose;
+            chose=Console.ReadLine();
+            switch(chose)
+            {
+                case "1":
+                    Console.WriteLine("Minimum ve Maximum deyerleri daxil edin;");
+                    double min = GetInputDouble("Minimum qiymet: ", int.MaxValue, 0);
+                    double max = GetInputDouble("Maximum qiymet: ", int.MaxValue, 0);
+                    foreach (var item in Filter(products,min,max))
+                    {
+                        Console.WriteLine(item.GetInfo());
+                    }
+                    break;
+
+                case "2":
+                    Console.Write("Axtarilacaq kitabin adini daxil edin: ");
+                    string searchName = Console.ReadLine();
+                    foreach (var item in Search(products, searchName))
+                    {
+                        Console.WriteLine(item.GetInfo());
+                    }
+                    break;
+                
+                case"3":
+                    Console.WriteLine("Butun kitablar:");
+                    for (int i = 0; i < products.Length; i++)
+                    {
+                        Console.WriteLine("===================");
+                        Console.WriteLine($"{i + 1}.ci kitab: ");
+                        Console.WriteLine(products[i].GetInfo());
+                    }
+                    break;
+                
+                case "4":
+                    break;
+
+
+
+
+
+            }
+
+            #endregion
         }
 
         static string GetInputStr(string name, int max,int min)
@@ -87,6 +141,52 @@ namespace _14._03._2022
             } while (input < min || input > max);
 
             return input;
+        }
+
+        static Book[] Filter(Book[] products, double min, double max)
+        {
+            int total = 0;
+            for (int i = 0; i < products.Length; i++)
+            {
+                if (products[i].Price >= min && products[i].Price <= max)
+                    total++;
+            }
+            Book[] productsNew = new Book[total];
+            int a = 0;
+            for (int i = 0; i < products.Length; i++)
+            {
+                if (products[i].Price >= min && products[i].Price <= max)
+                {
+                    productsNew[a] = products[i];
+                    a++;
+                }
+            }
+            products = productsNew;
+            return products;
+        }
+
+        static Book[] Search(Book[] products, string searchName)
+        {
+            int total = 0;
+            for (int i = 0; i < products.Length; i++)
+            {
+                if (products[i].Name==searchName)
+                {
+                    total++;
+                }
+            }
+            Book[] productsNew = new Book[total];
+            int a = 0;
+            for (int i = 0; i < products.Length; i++)
+            {
+                if (products[i].Name==searchName)
+                {
+                    products[a] = products[i];
+                    a++;
+                }
+            }
+            products=productsNew;
+            return products;
         }
     }
 }
